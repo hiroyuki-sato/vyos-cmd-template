@@ -1,0 +1,15 @@
+#!/bin/bash
+
+command=$( basename $0 )
+base_path=$( dirname $0 )/".."
+deb_path=$( cd $base_path ; pwd )/debian
+
+if [ $# -ne 1 ] ; then 
+  echo "Usage: $command project_name" 
+  exit 1
+fi
+
+proj=$1
+
+grep -rl 'vyos-dummy-template' $deb_path | \
+  xargs perl -i -pe 's/vyos-dummy-template/'$proj'/g'
